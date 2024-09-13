@@ -1,14 +1,14 @@
-// App.js
-// App.js
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import Dashboard from './components/Dashboard';
 import ManageTeam from './components/ManageTeam';
 import Contacts from './components/Contacts';
-import Invoices from './components/Invoices';
+import Invoices from './components/PaymentPage';
 import Profile from './components/Profile';
-import Calendar from './components/Calendar';
+import Donation from './components/Donation';
+import { FaSun, FaMoon } from 'react-icons/fa'; // Import icons for light and dark modes
+import PaymentPage from './components/PaymentPage';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false); // State to manage dark mode
@@ -24,31 +24,35 @@ function App() {
 
   return (
     <Router>
-      <div className={`flex ${darkMode ? 'dark' : ''}`}>
+      <div className={`flex min-h-screen ${darkMode ? 'dark' : ''}`}>
         {/* Sidebar */}
-        <div >
         <Sidebar />
-        </div>
-      <div className='w-12'>kj</div>
-        {/* Main Content */}
-        <div className="flex-1 p-6 bg-gray-100 dark:bg-gray-800 text-white">
-          {/* Toggle Button for Dark Mode */}
-          <div className="flex justify-end">  
+        <div className="w-12"></div>
+
+        {/* Main Content Layout */}
+        <div className="flex-1 pl-6 bg-gray-100 dark:bg-gray-800 text-white">
+          {/* Theme Toggle Icon positioned above the content */}
+          <div className="fixed top-4 right-4 z-50">  
             <button
-              className="mb-4 p-2 rounded bg-gray-200 text-black dark:bg-gray-700 dark:text-white"
               onClick={() => setDarkMode(!darkMode)}
+              className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300"
             >
-              {darkMode ? 'Light Mode' : 'Dark Mode'}
+              {darkMode ? (
+                <FaSun size={24} color="#FACC15" />
+              ) : (
+                <FaMoon size={24} color="#3498db" />
+              )}
             </button>
           </div>
 
+          {/* Routes and Page Content */}
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/manage-team" element={<ManageTeam />} />
             <Route path="/contacts" element={<Contacts />} />
-            <Route path="/invoices" element={<Invoices />} />
+            <Route path="/payment" element={<PaymentPage />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/calendar" element={<Calendar />} />
+            <Route path="/donation" element={<Donation/>} />
           </Routes>
         </div>
       </div>
@@ -57,4 +61,3 @@ function App() {
 }
 
 export default App;
-
